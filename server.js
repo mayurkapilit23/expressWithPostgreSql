@@ -22,14 +22,14 @@ const pool = new Pool({
     port: 5432,
 });
 
-// ✅ Test DB connection and define route
+// Test DB connection and define route
 app.get("/", async (req, res) => {
     try {
         const result = await pool.query("SELECT NOW()");
-        console.log("✅ Connected to PostgreSQL");
+        console.log("Connected to PostgreSQL".bgGreen);
         console.log("DB Time:", result.rows[0]);
 
-        // 👉 send response to browser
+        // send response to browser
         res.json({
             success: true,
             message: "Database connected successfully!",
@@ -38,7 +38,7 @@ app.get("/", async (req, res) => {
 
 
     } catch (err) {
-        console.error("❌ Error connecting to DB:", err);
+        console.error("Error connecting to DB:".bgRed, err);
         res.status(500).json({ success: false, error: err.message });
     }
 });
